@@ -19,6 +19,7 @@ def getUrl():
 def main():
   url = getUrl()
   clean_url = cleanup_url(url)
+  print(clean_url)
   transmission = Transmission()
   result = transmission.Add(clean_url)
   print(result)
