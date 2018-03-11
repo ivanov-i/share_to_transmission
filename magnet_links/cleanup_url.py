@@ -1,4 +1,5 @@
 import urllib.parse
+import sys
 
 
 def cleanup_url(input):
@@ -20,3 +21,7 @@ def cleanup_url(input):
     result = urllib.parse.urlunparse(new_parse_result)
     
     return result
+    
+if __name__ == '__main__':
+    print(sys.argv)
+    cleanup_url(sys.argv[1])
