@@ -6,9 +6,8 @@ class Transmission:
 
   session_id_header_name = 'X-Transmission-Session-Id'
 
-  def __init__(self, host='diskstation.local', port = 9091, auth = ('admin', 'admin')):
+  def __init__(self, host='192.168.1.103', port = 9091):
     self.url = 'http://{host}:{port}/transmission/rpc'.format(host = host, port = port)
-    self.auth = auth
     self.session_id = None
 
   def get_custom_headers(self):
@@ -16,7 +15,7 @@ class Transmission:
 
   def request(self, method, data):
     custom_headers = self.get_custom_headers()
-    response = method(self.url, auth = self.auth, headers = custom_headers, data=data)
+    response = method(self.url, headers = custom_headers, data=data)
     if response.status_code == 409 and self.session_id is None:
       self.session_id = response.headers[self.session_id_header_name]
       return self.request(method, data)
@@ -32,7 +31,7 @@ if __name__ == '__main__':
   r = '''{
           "arguments": {
             "fields": [ "id", "name", "totalSize" ],
-            "ids": [ 7, 10 ]
+            "ids": [ 2,5]
           },
           "method": "torrent-get",
           "tag": 39693
